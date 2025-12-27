@@ -2,15 +2,15 @@ version: '3.8'
 
 services:
   jenkins:
-    build: .                    # <--- use the Dockerfile above
+    build: .
     container_name: jenkins
     restart: unless-stopped
     ports:
-      - "9090:8080"             # Jenkins UI on host 9090
-      - "50000:50000"           # agent port
+      - "9090:8080"
+      - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
-      - /Users/joon.kim/.docker/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - JAVA_OPTS=-Xmx2048m -Xms1024m
 

@@ -38,4 +38,3 @@ RUN apt-get update && \
     usermod -aG docker jenkins && \
     rm -rf /var/lib/apt/lists/*
 
-USER jenkins
