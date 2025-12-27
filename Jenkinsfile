@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'maven-3.9'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -18,7 +22,7 @@ pipeline {
         stage('Backend - discovery-service') {
             steps {
                 dir('backend/discovery-service') {
-                    sh './mvnw clean verify'
+                    sh 'mvn clean verify'
                 }
             }
         }
@@ -26,7 +30,7 @@ pipeline {
         stage('Backend - gateway-service') {
             steps {
                 dir('backend/gateway-service') {
-                    sh './mvnw clean verify'
+                    sh 'mvn clean verify'
                 }
             }
         }
@@ -34,14 +38,14 @@ pipeline {
         stage('Backend - user-service') {
             steps {
                 dir('backend/user-service') {
-                    sh './mvnw clean verify'
+                    sh 'mvn clean verify'
                 }
             }
         }
        stage('Backend - product-service') {
             steps {
                 dir('backend/product-service') {
-                    sh './mvnw clean verify'
+                    sh 'mvn clean verify'
                 }
             }
         }
@@ -49,19 +53,17 @@ pipeline {
         stage('Backend - media-service') {
             steps {
                 dir('backend/media-service') {
-                    sh './mvnw clean verify'
+                    sh 'mvn clean verify'
                 }
             }
         }
         stage('Frontend') {
             steps {
                 dir('frontend') {
-                    script {
-                        docker.image('node:20-alpine').inside {
-                            sh 'npm ci'
-                            sh 'npx ng test --no-watch --no-progress'
-                            sh 'npx ng build --configuration production'
-                        }
+                    nodejs(nodeJSInstallationName: 'node-20.19.6') { // exact NodeJS tool name
+                        sh 'npm ci'
+                        sh 'npx ng test --no-watch --no-progress'
+                        sh 'npx ng build --configuration production'
                     }
                 }
             }
