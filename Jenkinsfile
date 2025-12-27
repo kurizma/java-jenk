@@ -20,5 +20,13 @@ pipeline {
                 echo 'Jenkins pipeline skeleton works'
             }
         }
+
+        stage('Backend - discovery-service') {
+                    steps {
+                        dir('backend/discovery-service') {
+                            sh './mvnw clean verify'
+                        }
+                    }
+                }
     }
 }
