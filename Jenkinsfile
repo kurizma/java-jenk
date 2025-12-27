@@ -22,11 +22,19 @@ pipeline {
         }
 
         stage('Backend - discovery-service') {
-                    steps {
-                        dir('backend/discovery-service') {
-                            sh './mvnw clean verify'
-                        }
-                    }
+            steps {
+                dir('backend/discovery-service') {
+                    sh './mvnw clean verify'
                 }
+            }
+        }
+
+        stage('Backend - gateway-service') {
+            steps {
+                dir('backend/gateway-service') {
+                    sh './mvnw clean verify'
+                }
+            }
+        }
     }
 }
