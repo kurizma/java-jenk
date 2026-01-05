@@ -31,7 +31,7 @@ pipeline {
             steps {
                 checkout([
                     $class: 'GitSCM',
-                    branches: [[name: "*/${params.BRANCH}"]],
+                    // branches: [[name: "*/${params.BRANCH}"]],
                     userRemoteConfigs: [[
                         url: 'https://github.com/kurizma/java-jenk.git',
                         credentialsId: 'github-java-jenk'
